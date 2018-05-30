@@ -1,12 +1,19 @@
 /*
  * Create a list that holds all of your cards
  */
- const cards = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o',
-   'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt', 'fa-cube', 'fa-cube', 'fa-leaf',
-   'fa-leaf', 'fa-bicycle', 'fa-bicycle', 'fa-bomb', 'fa-bomb'];
+
 const restart = document.querySelector('.restart');
-
-
+const card = document.getElementsByClassName('card');
+let cards = [...card]; /* https://scotch.io/@sandraisraelo */
+// loop to add event listeners to each card, https://scotch.io/@sandraisraelo
+let displayCard = function (){
+   this.classList.toggle('open');
+   this.classList.toggle('show');
+   this.classList.toggle('disabled');
+}
+  for (var i = 0; i < cards.length; i++){
+    cards[i].addEventListener('click', displayCard);
+};
 
 /*
  * Display the cards on the page
@@ -16,18 +23,18 @@ const restart = document.querySelector('.restart');
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+function shuffle(cards) {
+    let currentIndex = cards.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+        temporaryValue = cards[currentIndex];
+        cards[currentIndex] = cards[randomIndex];
+        cards[randomIndex] = temporaryValue;
     }
 
-    return array;
+    return cards;
 }
 
 
@@ -42,6 +49,11 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+
+
+
+
  // Restart Button
  restart.addEventListener('click', function(restart){
+
    console.log("Hello World!"); });
