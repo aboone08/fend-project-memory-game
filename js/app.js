@@ -3,17 +3,23 @@
  */
 
 const restart = document.querySelector('.restart');
+const deck = document.querySelector('.deck');
 const card = document.getElementsByClassName('card');
-let cards = [...card]; /* https://scotch.io/@sandraisraelo */
-// loop to add event listeners to each card, https://scotch.io/@sandraisraelo
-let displayCard = function (){
+const cards = [...card]; // use of the rest parameter to bundle the cards into an array
+let displayCard = function (){ // loop to add event listeners to each card, https://scotch.io/@sandraisraelo
    this.classList.toggle('open');
    this.classList.toggle('show');
    this.classList.toggle('disabled');
 }
-  for (var i = 0; i < cards.length; i++){
+  for (let i = 0; i < cards.length; i++){
+    let shuffleCards = shuffle(cards);
+    [].forEach.call(shuffleCards, function(item){
+      deck.appendChild(item);
+    });
     cards[i].addEventListener('click', displayCard);
 };
+
+
 
 /*
  * Display the cards on the page
@@ -23,19 +29,22 @@ let displayCard = function (){
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(cards) {
-    let currentIndex = cards.length, temporaryValue, randomIndex;
+function shuffle(array) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-        temporaryValue = cards[currentIndex];
-        cards[currentIndex] = cards[randomIndex];
-        cards[randomIndex] = temporaryValue;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
     }
 
-    return cards;
+    return array;
 }
+
+
+
 
 
 /*
@@ -49,11 +58,9 @@ function shuffle(cards) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-
-
-
+// Timer
 
  // Restart Button
- restart.addEventListener('click', function(restart){
+/*restart.addEventListener('click', function(restart){
 
-   console.log("Hello World!"); });
+   console.log(shuffle); }); */
