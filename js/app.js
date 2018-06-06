@@ -4,29 +4,35 @@
 
 const restart = document.querySelector('.restart');
 const deck = document.querySelector('.deck');
-const card = document.getElementsByClassName('card');
-const cards = [...card]; // use of the rest parameter to bundle the cards into an array
-let displayCard = function (){ // loop to add event listeners to each card, https://scotch.io/@sandraisraelo
-   this.classList.toggle('open');
-   this.classList.toggle('show');
-   this.classList.toggle('disabled');
-}
-  for (let i = 0; i < cards.length; i++){
-    let shuffleCards = shuffle(cards);
-    [].forEach.call(shuffleCards, function(item){
-      deck.appendChild(item);
-    });
-    cards[i].addEventListener('click', displayCard);
-};
-
-
-
+const cards = document.querySelectorAll('.card');
+const card = [...cards]; // use of the rest parameter to bundle the cards into an array
+let displayCard;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+
+displayCard = function(){ // loop to add event listeners to each card, https://scotch.io/@sandraisraelo
+    this.classList.toggle('open');
+    this.classList.toggle('show');
+
+    //this.classList.toggle('disabled');
+}
+
+document.body.onload = start();
+function start(){
+  let shuffleCards = shuffle(card);
+   for (let i = 0; i < cards.length; i++){
+     cards.forEach.call(shuffleCards, function(item){
+       deck.appendChild(item);
+     });
+     cards[i].classList.remove('show', 'open', 'match');
+     cards[i].addEventListener('click', displayCard);
+ };
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -43,6 +49,34 @@ function shuffle(array) {
     return array;
 }
 
+// Timer
+let secs = 0, mins=0;
+let gameTimer;
+
+function setTimer(){
+  gameTimer = setInterval(function(){
+  document.querySelector('.timer-display').innerHTML = min+'mins'+sec+'secs';
+  secs++;
+  if(secs==60){
+    secs++;
+    secs=0;
+  }
+  if(mins==60){
+    mins++;
+    mins=0;
+  }
+}, 1000);
+}
+
+function clearTimer(){
+  clearInterval(gameTimer);
+}
+
+/*restart.addEventListener('click', function(){
+  clearTimer();
+  function setTimer();
+}); */
+
 
 
 
@@ -58,7 +92,7 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-// Timer
+
 
  // Restart Button
 /*restart.addEventListener('click', function(restart){
