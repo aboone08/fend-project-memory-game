@@ -6,7 +6,12 @@ const restart = document.querySelector('.restart');
 const deck = document.querySelector('.deck');
 const cards = document.querySelectorAll('.card');
 const card = [...cards]; // use of the rest parameter to bundle the cards into an array
-let displayCard;
+let symbols = document.querySelectorAll('i.fas');
+let symbol = [...symbols];
+let openCards = [];
+
+
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -15,14 +20,13 @@ let displayCard;
  */
 
 
-displayCard = function(){ // loop to add event listeners to each card, https://scotch.io/@sandraisraelo
+displayCard = function(){
     this.classList.toggle('open');
     this.classList.toggle('show');
-
-    //this.classList.toggle('disabled');
 }
 
 document.body.onload = start();
+
 function start(){
   let shuffleCards = shuffle(card);
    for (let i = 0; i < cards.length; i++){
@@ -31,8 +35,10 @@ function start(){
      });
      cards[i].classList.remove('show', 'open', 'match');
      cards[i].addEventListener('click', displayCard);
+     cards[i].addEventListener('click', open);
  };
 }
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -49,28 +55,6 @@ function shuffle(array) {
     return array;
 }
 
-// Timer
-let secs = 0, mins=0;
-let gameTimer;
-
-function setTimer(){
-  gameTimer = setInterval(function(){
-  document.querySelector('.timer-display').innerHTML = min+'mins'+sec+'secs';
-  secs++;
-  if(secs==60){
-    secs++;
-    secs=0;
-  }
-  if(mins==60){
-    mins++;
-    mins=0;
-  }
-}, 1000);
-}
-
-function clearTimer(){
-  clearInterval(gameTimer);
-}
 
 /*restart.addEventListener('click', function(){
   clearTimer();
@@ -92,7 +76,53 @@ function clearTimer(){
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+function open(){
+  openCards.push(this);
+  let len = openCards.length;
+  if(len===2){
+  //  move();
+  if(openCards[0].childNodes[1]===openCards[1].childNodes[1]){
+    match();
+  }else{
+    nonmatch();
+  }
+}
+};
 
+function match(){
+  openCards[0].classList.add('match');
+  openCards[1].classList.add('match');
+  openCards[0].classList.remove('show', 'open');
+  openCards[1].classList.remove('show', 'open');
+  openCards=[];
+}
+
+function nonmatch(){
+  openCards[0].classList.add('nonmatch');
+  openCards[1].classList.add('nonmatch');
+  disable();
+  setTimeout(function(){
+    openCards[0].classList.remove('show', 'open', 'nonmatch');
+    openCards[1].classList.remove('show', 'open', 'nonmatch');
+    enable();
+    openCards=[];
+  }, 1100);
+}
+
+function disable(){
+  Array.prototype.filter.call(card, function(cards){
+    cards.classList.add('disabled');
+  });
+}
+
+function enable(){
+  Array.prototype.filter.call(card, function(cards){
+    cards.classList.remove('disabled');
+    for(let i=0; i<match.length; i++){
+      match[i].classList.add('disabled');
+    }
+  });
+}
 
  // Restart Button
 /*restart.addEventListener('click', function(restart){
