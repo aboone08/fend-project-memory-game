@@ -6,8 +6,7 @@ const restart = document.querySelector('.restart');
 const deck = document.querySelector('.deck');
 const cards = document.querySelectorAll('.card');
 const card = [...cards]; // use of the rest parameter to bundle the cards into an array
-let symbols = document.querySelectorAll('i.fas');
-let symbol = [...symbols];
+
 let openCards = [];
 
 
@@ -56,15 +55,6 @@ function shuffle(array) {
 }
 
 
-/*restart.addEventListener('click', function(){
-  clearTimer();
-  function setTimer();
-}); */
-
-
-
-
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -77,11 +67,12 @@ function shuffle(array) {
  */
 
 function open(){
-  openCards.push(this);
-  let len = openCards.length;
-  if(len===2){
+openCards.push(this);
+let l = openCards.length;
+if(l===2){
+
   //  move();
-  if(openCards[0].childNodes[1]===openCards[1].childNodes[1]){
+if(openCards[0].innerHTML===openCards[1].innerHTML){
     match();
   }else{
     nonmatch();
@@ -100,31 +91,9 @@ function match(){
 function nonmatch(){
   openCards[0].classList.add('nonmatch');
   openCards[1].classList.add('nonmatch');
-  disable();
   setTimeout(function(){
     openCards[0].classList.remove('show', 'open', 'nonmatch');
     openCards[1].classList.remove('show', 'open', 'nonmatch');
-    enable();
     openCards=[];
-  }, 1100);
+  }, 1000);
 }
-
-function disable(){
-  Array.prototype.filter.call(card, function(cards){
-    cards.classList.add('disabled');
-  });
-}
-
-function enable(){
-  Array.prototype.filter.call(card, function(cards){
-    cards.classList.remove('disabled');
-    for(let i=0; i<match.length; i++){
-      match[i].classList.add('disabled');
-    }
-  });
-}
-
- // Restart Button
-/*restart.addEventListener('click', function(restart){
-
-   console.log(shuffle); }); */
