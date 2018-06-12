@@ -8,6 +8,8 @@ const cards = document.querySelectorAll('.card');
 const card = [...cards]; // use of the rest parameter to bundle the cards into an array
 
 let openCards = [];
+let count = 0;
+let moves = document.querySelector('.moves');
 
 
 
@@ -19,10 +21,6 @@ let openCards = [];
  */
 
 
-displayCard = function(){
-    this.classList.toggle('open');
-    this.classList.toggle('show');
-}
 
 document.body.onload = start();
 
@@ -33,10 +31,12 @@ function start(){
        deck.appendChild(item);
      });
      cards[i].classList.remove('show', 'open', 'match');
+
      cards[i].addEventListener('click', displayCard);
      cards[i].addEventListener('click', open);
- };
-}
+     };
+ }
+
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -66,12 +66,17 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-function open(){
-openCards.push(this);
-let l = openCards.length;
-if(l===2){
+ function displayCard(){
+     this.classList.toggle('open');
+     this.classList.toggle('show');
 
-  //  move();
+ }
+
+function open(){ // function to add cards to a list of openCards
+openCards.push(this);
+let length = openCards.length;
+if(length===2){
+    moveCount();
 if(openCards[0].innerHTML===openCards[1].innerHTML){
     match();
   }else{
@@ -80,7 +85,7 @@ if(openCards[0].innerHTML===openCards[1].innerHTML){
 }
 };
 
-function match(){
+function match(){ // match function
   openCards[0].classList.add('match');
   openCards[1].classList.add('match');
   openCards[0].classList.remove('show', 'open');
@@ -88,7 +93,7 @@ function match(){
   openCards=[];
 }
 
-function nonmatch(){
+function nonmatch(){ // nonmatch function
   openCards[0].classList.add('nonmatch');
   openCards[1].classList.add('nonmatch');
   setTimeout(function(){
@@ -96,4 +101,9 @@ function nonmatch(){
     openCards[1].classList.remove('show', 'open', 'nonmatch');
     openCards=[];
   }, 1000);
+}
+
+function moveCount(){
+  count ++;
+  console.log(moves.innerHTML = count);
 }
