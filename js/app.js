@@ -6,10 +6,11 @@ const restart = document.querySelector('.restart');
 const deck = document.querySelector('.deck');
 const cards = document.querySelectorAll('.card');
 const card = [...cards]; // use of the rest parameter to bundle the cards into an array
+const moves = document.querySelector('.moves');
+const stars = document.querySelectorAll('.fa-star');
 
 let openCards = [];
 let count = 0;
-let moves = document.querySelector('.moves');
 
 
 
@@ -31,7 +32,6 @@ function start(){
        deck.appendChild(item);
      });
      cards[i].classList.remove('show', 'open', 'match');
-
      cards[i].addEventListener('click', displayCard);
      cards[i].addEventListener('click', open);
      };
@@ -67,14 +67,14 @@ function shuffle(array) {
  */
 
  function displayCard(){
-     this.classList.toggle('open');
-     this.classList.toggle('show');
-
+    this.classList.toggle('open');
+    this.classList.toggle('show');
  }
 
 function open(){ // function to add cards to a list of openCards
 openCards.push(this);
 let length = openCards.length;
+
 if(length===2){
     moveCount();
 if(openCards[0].innerHTML===openCards[1].innerHTML){
@@ -103,7 +103,33 @@ function nonmatch(){ // nonmatch function
   }, 1000);
 }
 
-function moveCount(){
+function moveCount(){ // move count function
   count ++;
   console.log(moves.innerHTML = count);
-}
+// star count display
+  if(count>4 && count<8){
+    for(i=0;i<3;i++){
+      if(i>2){
+        stars[i].style.visibility = 'collapse';
+      }
+    }
+  }else if(count>9 && count<13){
+    for(i=0;i<3;i++){
+      if(i>1){
+        stars[i].style.visibility = 'collapse';
+      }
+    }
+  }else if(count>14 && count<18){
+    for(i=0;i<3;i++){
+      if(i>0){
+        stars[i].style.visibility = 'collapse';
+      }
+    }
+    }else if(count>19){
+      for(i=0;i<3;i++){
+        if(i>-1){
+          stars[i].style.visibility = 'collapse';
+        }
+      }
+    }
+  }
