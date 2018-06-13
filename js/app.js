@@ -85,7 +85,7 @@ if(openCards[0].innerHTML===openCards[1].innerHTML){
 }
 };
 
-function match(){ // match function
+function match(){ // for cards that match
   openCards[0].classList.add('match');
   openCards[1].classList.add('match');
   openCards[0].classList.remove('show', 'open');
@@ -93,7 +93,7 @@ function match(){ // match function
   openCards=[];
 }
 
-function nonmatch(){ // nonmatch function
+function nonmatch(){ // for cards that do not match
   openCards[0].classList.add('nonmatch');
   openCards[1].classList.add('nonmatch');
   setTimeout(function(){
@@ -103,9 +103,15 @@ function nonmatch(){ // nonmatch function
   }, 1000);
 }
 
-function moveCount(){ // move count function
+function moveCount(){ // move count
   count ++;
-  console.log(moves.innerHTML = count);
+  moves.innerHTML = count;
+//start gameTimer on count 1
+  if(count == 1){
+    second=0;
+    minute=0;
+    gameTimer();
+  }
 // star count display
   if(count>4 && count<8){
     for(i=0;i<3;i++){
@@ -133,3 +139,16 @@ function moveCount(){ // move count function
       }
     }
   }
+
+// game timer
+function gameTimer(){
+  let seconds = 0;
+startTimer = setInterval(function(){
+  seconds++;
+  document.getElementById('seconds').innerText = seconds % 60;
+  document.getElementById('minutes').innerText = parseInt(seconds/60);
+}, 1000);
+stopTimer = clearInterval(function(){
+  clearInterval(gameTimer);
+})
+}
