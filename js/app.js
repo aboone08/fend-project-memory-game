@@ -4,10 +4,12 @@
 
 const restart = document.querySelector('.restart');
 const deck = document.querySelector('.deck');
+const flipped = document.getElementsByClassName('card show open');
 const cards = document.querySelectorAll('.card');
 const card = [...cards]; // use of the rest parameter to bundle the cards into an array
 const moves = document.querySelector('.moves');
 const stars = document.querySelectorAll('.fa-star');
+const modal = document.getElementById('congratsModal');
 
 let openCards = [];
 let count = 0;
@@ -21,9 +23,9 @@ let count = 0;
  *   - add each card's HTML to the page
  */
 
-
-
 document.body.onload = start();
+
+
 
 function start(){
   let shuffleCards = shuffle(card);
@@ -35,8 +37,7 @@ function start(){
      cards[i].addEventListener('click', displayCard);
      cards[i].addEventListener('click', open);
      };
- }
-
+}
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -66,23 +67,31 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+
  function displayCard(){
-    this.classList.toggle('open');
-    this.classList.toggle('show');
- }
+  this.classList.toggle('show');
+  this.classList.toggle('open');
+
+/*  let flipped = [].includes(displayCard);
+  document.getElementsByClassName('card show open');
+  if(flipped){
+     displayCard.preventDefault();
+  } */
+}
+
 
 function open(){ // function to add cards to a list of openCards
 openCards.push(this);
 let length = openCards.length;
 
-if(length===2){
+  if(length===2){
     moveCount();
-if(openCards[0].innerHTML===openCards[1].innerHTML){
-    match();
-  }else{
-    nonmatch();
-  }
-}
+    if((openCards[0].innerHTML===openCards[1].innerHTML)&&(openCards[0]!=openCards[1])){
+      match();
+      }else{
+        nonmatch();
+      }
+    }
 };
 
 function match(){ // for cards that match
@@ -94,8 +103,8 @@ function match(){ // for cards that match
 }
 
 function nonmatch(){ // for cards that do not match
-  openCards[0].classList.add('nonmatch');
-  openCards[1].classList.add('nonmatch');
+    openCards[0].classList.add('nonmatch');
+    openCards[1].classList.add('nonmatch');
   setTimeout(function(){
     openCards[0].classList.remove('show', 'open', 'nonmatch');
     openCards[1].classList.remove('show', 'open', 'nonmatch');
@@ -106,12 +115,12 @@ function nonmatch(){ // for cards that do not match
 function moveCount(){ // move count
   count ++;
   moves.innerHTML = count;
-//start gameTimer on count 1
+  //start gameTimer
   if(count == 1){
-    second=0;
-    minute=0;
-    gameTimer();
-  }
+      second=0;
+      minute=0;
+      gameTimer();
+    }
 // star count display
   if(count>4 && count<8){
     for(i=0;i<3;i++){
@@ -141,14 +150,42 @@ function moveCount(){ // move count
   }
 
 // game timer
-function gameTimer(){
+function gameTimer(){ //http://logicalmoon.com/2015/05/using-javascript-to-create-a-timer/
   let seconds = 0;
 startTimer = setInterval(function(){
   seconds++;
   document.getElementById('seconds').innerText = seconds % 60;
   document.getElementById('minutes').innerText = parseInt(seconds/60);
 }, 1000);
-stopTimer = clearInterval(function(){
-  clearInterval(gameTimer);
-})
+}
+
+function stopTimer(){
+  stopTimer = clearInterval();
+  //  second = 0;
+  //  minute = 0;
+  //  document.getElementById('seconds').innerHTML = '';
+  //  document.getElementById('minutes').innerHTML = '';
+
+}
+
+//modal
+/*function congrats(){
+  if(match.length==16){
+    clearInterval(gameTimer);
+    finalTime = document.querySelector('.timer-display').innerHTML;
+    // display congrats modal
+    modal.classList.add('show');
+    // display final move, final star rating and final time on modal
+    document.getElementById('finalMove').innerHTML = count;
+    document.getElementById('finalStar').innerHTML = stars;
+    document.getElementById('finalTime').innerHTML = finalTime;
+    //close modal
+    closeModal();
+  };
+}
+
+//restart button
+function restartGame(){
+  restart.addEventListener('click', restartGame);
+  clearInterval();
 }
