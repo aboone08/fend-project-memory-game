@@ -2,19 +2,17 @@
  * Create a list that holds all of your cards
  */
 
-const restart = document.querySelector('.restart');
+const restart = document.getElementById('restart');
 const deck = document.querySelector('.deck');
 const flipped = document.getElementsByClassName('card show open');
 const cards = document.querySelectorAll('.card');
 const card = [...cards]; // use of the rest parameter to bundle the cards into an array
 const moves = document.querySelector('.moves');
 const stars = document.querySelectorAll('.fa-star');
-const modal = document.getElementById('congratsModal');
+//const modal = document.getElementById('congratsModal');
 
 let openCards = [];
 let count = 0;
-
-
 
 /*
  * Display the cards on the page
@@ -24,8 +22,6 @@ let count = 0;
  */
 
 document.body.onload = start();
-
-
 
 function start(){
   let shuffleCards = shuffle(card);
@@ -71,19 +67,11 @@ function shuffle(array) {
  function displayCard(){
   this.classList.toggle('show');
   this.classList.toggle('open');
-
-/*  let flipped = [].includes(displayCard);
-  document.getElementsByClassName('card show open');
-  if(flipped){
-     displayCard.preventDefault();
-  } */
 }
-
 
 function open(){ // function to add cards to a list of openCards
 openCards.push(this);
 let length = openCards.length;
-
   if(length===2){
     moveCount();
     if((openCards[0].innerHTML===openCards[1].innerHTML)&&(openCards[0]!=openCards[1])){
@@ -147,45 +135,34 @@ function moveCount(){ // move count
         }
       }
     }
-  }
+}
 
-// game timer
+//game timer
 function gameTimer(){ //http://logicalmoon.com/2015/05/using-javascript-to-create-a-timer/
   let seconds = 0;
-startTimer = setInterval(function(){
-  seconds++;
-  document.getElementById('seconds').innerText = seconds % 60;
-  document.getElementById('minutes').innerText = parseInt(seconds/60);
-}, 1000);
+  startTimer = setInterval(function(){
+    seconds++;
+    document.getElementById('seconds').innerText = seconds % 60;
+    document.getElementById('minutes').innerText = parseInt(seconds/60);
+  }, 1000);
 }
 
-function stopTimer(){
-  stopTimer = clearInterval();
-  //  second = 0;
-  //  minute = 0;
-  //  document.getElementById('seconds').innerHTML = '';
-  //  document.getElementById('minutes').innerHTML = '';
-
+//timer reset
+function resetTimer(){
+  clearInterval(startTimer);
+  document.getElementById('seconds').innerText = 0;
+  document.getElementById('minutes').innerText = 0;
 }
 
-//modal
-/*function congrats(){
-  if(match.length==16){
-    clearInterval(gameTimer);
-    finalTime = document.querySelector('.timer-display').innerHTML;
-    // display congrats modal
-    modal.classList.add('show');
-    // display final move, final star rating and final time on modal
-    document.getElementById('finalMove').innerHTML = count;
-    document.getElementById('finalStar').innerHTML = stars;
-    document.getElementById('finalTime').innerHTML = finalTime;
-    //close modal
-    closeModal();
-  };
-}
-
-//restart button
+//game reset
+restart.addEventListener('click', restartGame);
 function restartGame(){
-  restart.addEventListener('click', restartGame);
-  clearInterval();
+  for(let i=0;i<stars.length;i++){
+    stars[i].style.color= '#000';
+    stars[i].style.visibility='visible';
+  }
+  count=0;
+  moves.innerHTML = count;
+  resetTimer();
+  start();
 }
