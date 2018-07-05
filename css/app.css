@@ -117,3 +117,71 @@ h1 {
 .score-panel .timer-display {
     margin: 6px;
 }
+
+/* Congrats Modal */
+.modal.show {
+  display: block;
+  position: absolute;
+  top: 13%;
+  left: 20%;
+  width: 60%;
+}
+
+.modal.closed {
+   display: block;
+}
+
+.modal {
+   display: none;
+}
+
+.modal-content {
+   background-color: #fefefe;
+   border: 1px solid #888;
+   padding: 8px;
+   text-align: center;
+}
+
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #916ddc;
+    color: white;
+    text-align: center;
+
+}
+
+.modal-body {
+    padding: 2px 16px;
+}
+
+.close {
+   color: #aaa;
+   font-size: 30px;
+   float: right;
+}
+
+.modal.closed {
+  display: none;
+}
+
+
+#starFin li {
+  list-style: none;
+  display: inline-block;
+}
+
+#again{
+  font-size: 16px;
+  background-color: #559DB1;
+
+}
+
+.fa-th:before {
+    content: "\f00a";
+    padding-right: 4px;
+}
+
+.button#again.closed {
+  display: none;
+}
