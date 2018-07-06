@@ -3,15 +3,22 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
+* [Game Symbols](#game_symbols)
 * [Contributing](#contributing)
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+To start the game, click on a tile to flip over.
+To play game, continue clicking tiles until a total of eight matches have been made.
+When game is complete, the user will have the option to play again.
+During the game, the user will have the option to restart the game by clicking the restart symbol.
 
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+## Game Symbols
+Stars mark the ranking of the game and is measured by the number of moves taken to gather the eight matches.
+A Game Timer denotes the gamer timer.
+A restart symbol denotes the restart button to allow the user to restart the game.
+A Mini Board Game will appear on the play again button that is to be clicked if the user would like to play again.
+An X is used in the modal for the user to click if they would like to close the modal and reflect on their previous game.
 
 ## Contributing
 
