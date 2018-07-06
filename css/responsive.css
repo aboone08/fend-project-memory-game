@@ -1,0 +1,42 @@
+@media only screen and (min-width: 360px) {
+  h1 {
+    font-size: 50px;
+    padding-top: 50px;
+  }
+
+  .score-panel {
+    font-size: 30px;
+    margin-bottom: 20px;
+    width: inherit;
+  }
+
+  .deck .card.show {
+    font-size: 56px;
+  }
+
+  .deck .card.match {
+    font-size: 56px;
+  }
+
+  .modal.show {
+    top: 9%;
+
+  }
+
+  h2 {
+    font-size: 38px;
+  }
+
+  .close {
+    font-size: 40px;
+  }
+
+  .modal-content {
+    font-size: 26px;
+    padding-bottom: 20px;
+  }
+
+  #again {
+    font-size: 28px;
+  }
+}
